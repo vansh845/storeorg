@@ -30,7 +30,7 @@ export default function Home() {
           {images
           .featured
             .map(x => 
-              <div className='flex flex-col space-y-2 justify-center border-b items-center'>
+              <div key={x} className='flex flex-col space-y-2 justify-center border-b items-center'>
                 <Image className='rounded-lg w-fit object-cover' src={x} alt='main-cover' width={70} height={70} unoptimized />
                 <AddToCart/>
               </div>)}
