@@ -1,11 +1,11 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { links, images } from '@/config/site'
 import { badgeVariants } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'
-import AddToCart from '@/components/add-to-cart'
+import ProductCard from '@/components/product-card'
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <main className='md:px-16'>
       <section className="flex flex-col justify-center items-center h-screen">
@@ -26,14 +26,10 @@ export default function Home() {
         <h2 className='font-bold text-2xl tracking-tighter leading-tight'>
           Featured
         </h2>
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-          {images
-          .featured
-            .map(x => 
-              <div key={x} className='flex flex-col space-y-2 justify-center border-b items-center'>
-                <Image className='rounded-lg w-fit object-cover' src={x} alt='main-cover' width={70} height={70} unoptimized />
-                <AddToCart/>
-              </div>)}
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+          {images.featured.map(x => 
+            <ProductCard link={x}/> 
+          )}
           
         </div>
       </section>
