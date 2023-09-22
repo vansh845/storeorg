@@ -28,7 +28,7 @@ export default async function Home() {
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           {images.featured.map(x => 
-            <ProductCard link={x}/> 
+            <ProductCard key={x} link={x}/> 
           )}
           
         </div>
