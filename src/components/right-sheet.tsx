@@ -31,7 +31,7 @@ export function RightSheet({ categories }: { categories: CategoriesType[] }) {
           <Command>
             <CommandList>
               <CommandGroup>
-                {categories.map(x => <CommandItem key={x.id}>{x.title}</CommandItem>)}
+                {categories.map(x => <CommandItem key=''>{x.title}</CommandItem>)}
               </CommandGroup>
             </CommandList>
           </Command>
