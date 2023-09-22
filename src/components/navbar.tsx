@@ -19,7 +19,7 @@ export default async function Navbar() {
                 StoreOrg
             </h4>
             <div className='hidden md:font-light md:text-sm md:flex md:space-x-3'>
-                {categories.map(x => <p key={x.id}>{x.title}</p>)}
+                {categories.map(x => <p key=''>{x.title}</p>)}
             </div>
             <div className='items-center flex justify-center space-x-4'>
                 <CartButton />
