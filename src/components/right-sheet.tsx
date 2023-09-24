@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button"
-import { AlignJustify, Link } from 'lucide-react'
+import { AlignJustify } from 'lucide-react'
 import { CategoriesType } from "@/types"
 import {
   Sheet,
@@ -20,7 +19,7 @@ export function RightSheet({ categories }: { categories: CategoriesType[] }) {
       <SheetTrigger asChild>
         <button><AlignJustify /></button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side={'left'}>
         <SheetHeader>
           <SheetTitle>Categories</SheetTitle>
           <SheetDescription>
