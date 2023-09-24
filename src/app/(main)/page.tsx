@@ -3,13 +3,20 @@ import { links, images } from '@/config/site'
 import { badgeVariants } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/product-card'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export default async function Home() {
+
+  const session = await getServerSession();
+  if(!session || !session?.user){
+    redirect("/api/auth/signin")
+  }
 
   return (
     <main className='md:px-16'>
       <section className="flex flex-col justify-center items-center h-screen">
-        <Link className={`${badgeVariants({ variant: 'secondary' })} font-medium`} href={links.repo}>{"view on github >"}</Link>
+        <Link className={`${badgeVariants({ variant: 'secondary' })} font-medium py-2`} href={links.repo}>{"view on github >"}</Link>
         <h1 className="p-5 text-center scroll-m-20 text-3xl font-normal lg:font-medium leading-tight tracking-tighter md:text-4xl lg:text-6xl">
           E-commerce store made using nextjs 13
         </h1>
