@@ -24,7 +24,7 @@ export default function SignIn() {
             <Card>
                 <CardHeader>
                     <CardTitle>Sign In with Github</CardTitle>
-                    <CardDescription>let's go</CardDescription>
+                    <CardDescription>lets go</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col space-y-3">
                     <Button onClick={() => signIn("github")}><GitHubLogoIcon className="mr-2" />{"Github"}</Button>
