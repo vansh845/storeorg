@@ -2,7 +2,7 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Image from 'next/image';
 import { LogOut } from 'lucide-react';
-
+import { Button } from './ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,7 +14,6 @@ import {
 
 export default function ProfilePicture() {
     const { data: session } = useSession();
-    console.log(session)
     if (session) {
         return (
             <DropdownMenu>
@@ -35,8 +34,7 @@ export default function ProfilePicture() {
     }
     return (
         <>
-            user not logged in
-            <button onClick={() => signIn("github")}>sign In</button>
+            <Button className='text-xs' variant={'secondary'} onClick={() => signIn()}>SignIn</Button>
         </>
     )
 }
