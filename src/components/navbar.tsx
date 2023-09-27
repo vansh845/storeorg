@@ -3,6 +3,7 @@ import { RightSheet } from './right-sheet'
 import { prisma } from '../../prisma'
 import { CategoriesType } from '@/types';
 import ProfilePicture from '@/components/profile-picture';
+import Link from 'next/link';
 
 
 export default async function Navbar() {
@@ -19,9 +20,12 @@ export default async function Navbar() {
                 <div className='flex items-center md:hidden'>
                     <RightSheet categories={categories} />
                 </div>
-                <h4 className="scroll-m-20 text-xl font-bold tracking-tight">
-                    StoreOrg
-                </h4>
+                <Link href={'/'}>
+                    <h4 className="scroll-m-20 text-xl font-bold tracking-tight">
+                        StoreOrg
+                    </h4>
+                </Link>
+
             </div>
 
             <div className='hidden md:font-light md:text-sm md:flex md:space-x-3'>

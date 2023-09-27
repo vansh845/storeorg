@@ -1,10 +1,9 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
-import Footer from '@/components/footer'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../components/SessionProvider'
+import QCprovider from '@/components/queryclientprovider'
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -20,20 +19,15 @@ export default async function RootLayout({
 }) {
 
   const session = await getServerSession()
-
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
-        <ThemeProvider attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
+        
           <SessionProvider session={session}>
-
-            {children}
-
+            <QCprovider>
+              {children}
+            </QCprovider>
           </SessionProvider>
-        </ThemeProvider>
 
       </body>
     </html>

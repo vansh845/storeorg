@@ -1,6 +1,11 @@
+export type UserType = {
+    id: Number
+    name:string
+    email:string
+}
 
 export type SubCategoryType = {
-    title: String,
+    title: String
     CatId: Number
     id : Number
 }
