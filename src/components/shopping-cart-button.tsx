@@ -1,26 +1,22 @@
-'use client'
-
 import { ShoppingBag } from 'lucide-react'
-import useCartState from '@/hooks/store'
-import { useSession } from 'next-auth/react'
-import { Button } from './ui/button'
-import { useRouter } from 'next/navigation'
+import { buttonVariants } from './ui/button'
+import { getCartItems } from '@/actions/getcartitems'
+import { getServerSession } from 'next-auth'
+import Link from 'next/link'
 
-export default function CartButton(){
-    const cartCount = useCartState((state)=>state.cartCount)
-    const {data} =  useSession();
-    const page = data?.user ? '/cart': '/signin'
-    const router = useRouter();
-
-    const handleClick = ()=>{
-        router.push(page)
-    }
+export default async function CartButton() {
+    const res = await getCartItems();
+    const data = await getServerSession()
+    const page = data?.user ? '/cart' : '/signin'
+    const cartCount = res.length
 
     return (
-        <Button variant={'ghost'} className="flex" onClick={handleClick}>
-            <ShoppingBag className='w-5' />
-            {cartCount?<div className='flex items-center justify-center bg-black text-white rounded-3xl w-4 h-4 font-extralight text-xs'>{cartCount}</div>:''}
-        </Button>
+        <div className='relative'>
+            <Link href={page} className={buttonVariants({ variant: 'ghost' })}>
+                <ShoppingBag className='w-5' />
+            </Link>
+            {cartCount?<div className='flex absolute top-0 right-0 items-center justify-center bg-black text-white rounded-3xl w-4 h-4 font-extralight text-xs'>{cartCount}</div>:''}
+        </div>
 
     )
 }

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../components/SessionProvider'
-import QCprovider from '@/components/queryclientprovider'
+import QCprovider from '../components/queryclientprovider'
 
 const font = Inter({ subsets: ['latin'] })
 

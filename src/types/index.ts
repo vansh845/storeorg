@@ -14,3 +14,9 @@ export type CategoriesType = {
     id: Number
     title: String
 }
+
+export type CartItemsType = {
+    cartid: number,
+    title: string,
+    price : number
+}

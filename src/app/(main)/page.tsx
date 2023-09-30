@@ -4,12 +4,10 @@ import { badgeVariants } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/product-card'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 export default async function Home() {
 
-  const session = await getServerSession();
-  console.log(session?.user?.image)
+  const session = await getServerSession()
 
   return (
     <main className='md:px-16'>
@@ -23,7 +21,7 @@ export default async function Home() {
         </h3>
         <div className='flex space-x-2 mt-4'>
           <Button variant={'default'}>Buy</Button>
-          <Button variant={'outline'}>Sign Up</Button>
+          {session?.user?'':<Button variant={'outline'}>Sign Up</Button>}
         </div>
 
       </section>
@@ -33,7 +31,7 @@ export default async function Home() {
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           {images.featured.map(x => 
-            <ProductCard key='' link={x}/> 
+            <ProductCard key='' link={x.img} title={x.title} price={x.price}/> 
           )}
           
         </div>
