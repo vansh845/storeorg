@@ -1,32 +1,38 @@
 'use client'
-import axios from 'axios'
-import SignInCard from "@/components/sigincard"
-import { prisma } from "../../../../prisma/index";
-import { redirect } from "next/navigation";
-import {useMutation} from "@tanstack/react-query"
-import { useSession } from "next-auth/react";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { Button } from "@/components/ui/button"
+import { signIn, useSession } from "next-auth/react"
+import { GoogleIcon } from "@/components/icons"
+import { redirect } from "next/navigation"
 
 export default function SignIn() {
 
-    const {data: session} = useSession()
-
-    const mutation = useMutation({
-        mutationFn: async ()=>{
-            const data = await axios.post('http://127.0.0.1:3000/api/users',{
-                name:session?.user?.name,
-                email:session?.user?.email
-            })
-        }
-        // onSuccess:()=>{
-        //     redirect('/')
-        // }
-    })
-    
-    if(session?.user){
-        mutation.mutate()
+    const {data : session} = useSession();
+    if(session){
+        redirect('/')
     }
+    
 
     return (
-        <SignInCard />
+
+        <div className="flex justify-center bg-black items-center text-center h-screen">
+            <Card className="bg-black text-white border-black shadow-lg">
+                <CardHeader>
+                    <CardTitle>Sign In with Github</CardTitle>
+                    <CardDescription>lets go</CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col space-y-3">
+                    <Button onClick={() => signIn("github")}><GitHubLogoIcon className="mr-2" />{"Github"}</Button>
+                    <Button onClick={() => signIn("google")}><GoogleIcon />{"Google"}</Button>
+                </CardContent>
+            </Card>
+        </div>
     )
 }

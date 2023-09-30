@@ -1,25 +1,31 @@
 import { prisma } from "../../../../prisma";
 import { NextResponse } from "next/server";
 import { UserType } from "@/types";
+import { getServerSession } from 'next-auth'
+import { authOptions } from "@/lib/auth";
 
 export async function POST(request:Request){
+
+    const session = await getServerSession(authOptions);
+
+    if(!session?.user){
+        console.log('unauthorized')
+        return NextResponse.json({message:"Unauthorized access", success:false})
+    }
+
     const body = await request.json() as UserType;
-    console.log(body)
     try {
-        await prisma.user.create({
+        const data = await prisma.user.create({
             data:{
                 name: body.name,
-                email: body.email
+                email: body.email,
+
             }
         })
-        return NextResponse.json({message:'success',})
+        return NextResponse.json({"message":'success',"data":data})
     } 
     catch (error) {
         return NextResponse.json({success:false,message:error})
     }
 
-}
-
-export async function GET(req:Request){
-    return NextResponse.json({name:'vansh'})
 }

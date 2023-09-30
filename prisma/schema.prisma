@@ -12,6 +12,15 @@ model User {
   id    Int    @id @default(autoincrement())
   name  String 
   email String @unique
+  cartitems Cartitems[]
+}
+
+model Cartitems {
+  cartid Int @id @default(autoincrement())
+  title String
+  price Int
+  useremail String
+  user User @relation(fields: [useremail] , references: [email])
 }
 
 model Category {

@@ -1,9 +1,36 @@
 import { useQuery } from "@tanstack/react-query"
+import { prisma } from "../../prisma"
+import { CartItemsType } from "@/types";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
-export const getCartItems = ()=>{
+
+export async function getCartItems():Promise<CartItemsType[]>{
     
-    return (
-        []
-    )
-    
+    const session = await getServerSession(authOptions)
+
+    if(!session){
+        return new Promise((res)=>res([]))
+    }
+
+    const data = await prisma.cartitems.findMany({
+        where:{
+            useremail:session?.user?.email!
+        }
+    })
+
+    return new Promise<CartItemsType[]>((res,rej)=>res(data))
+
+}
+
+export async function cartLength():Promise<number>{
+    const session = await getServerSession(authOptions)
+
+    const data = await prisma.cartitems.findMany({
+        where:{
+            useremail:session?.user?.email!
+        }
+    })
+
+    return new Promise((resolve)=>resolve(data.length))
 }
