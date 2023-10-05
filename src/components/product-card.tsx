@@ -1,12 +1,16 @@
 import AddToCart from '@/components/add-to-cart'
 import Image from 'next/image'
+import Link from 'next/link'
+import { Products } from '@prisma/client'
 
+export default function ProductCard({product}:{product:Products}) {
 
-export default function ProductCard({ link , title , price}: { link: string, title:string , price:number}) {
     return (
-        <div key={link} className='flex flex-col space-y-2 justify-center border-b items-center'>
-            <Image className='rounded-lg w-fit object-cover' src={link} alt='main-cover' width={70} height={70} unoptimized />
-            <AddToCart link={link} title={title} price={price}/>
-        </div>
+        <div key={product.id} className='flex flex-col space-y-3 justify-center border items-center rounded-lg overflow-hidden'>
+            <Link href={`/product/${product.id}`}>
+            <Image className='w-fit object-cover' src={product.images[0]} alt='main-cover' width={70} height={70} unoptimized />
+            </Link>
+            <AddToCart link={product.images[0]} title={product.name} price={product.price}/>
+        </div> 
     )
 }

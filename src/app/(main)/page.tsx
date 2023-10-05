@@ -4,10 +4,15 @@ import { badgeVariants } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/product-card'
 import { getServerSession } from 'next-auth'
+import { prisma } from '../../../prisma'
 
 export default async function Home() {
 
   const session = await getServerSession()
+
+  const someProducts = await prisma.products.findMany({
+    take:4
+  })
 
   return (
     <main className='md:px-16'>
@@ -29,11 +34,8 @@ export default async function Home() {
         <h2 className='font-bold text-2xl tracking-tighter leading-tight'>
           Featured
         </h2>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-          {images.featured.map(x => 
-            <ProductCard key='' link={x.img} title={x.title} price={x.price}/> 
-          )}
-          
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+          {someProducts.map(product=><ProductCard key={product.id} product={product}/>)}
         </div>
       </section>
     </main>
