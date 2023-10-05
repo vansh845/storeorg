@@ -16,7 +16,7 @@ export default async function Product({ params }: { params: { productId: number 
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen p-8">
             <Image src={data.images[0]} alt="main" width={300} height={300} ></Image>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                 {data.name}
