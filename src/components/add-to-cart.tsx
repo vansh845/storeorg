@@ -40,9 +40,9 @@ const AddToCart = ({ link, title, price }: { link: string, title: string, price:
     }
 
     return (
-        <>
-            {mutation.isLoading?<Button disabled><Loader2 className="animate-spin"/></Button>:<Button onClick={addtoCart} className="font-normal">Add to cart</Button>}
-        </>
+        <div className="pb-2">
+            {mutation.isLoading?<Button disabled><Loader2 className="animate-spin"/></Button>:<Button onClick={addtoCart} className="font-medium text-xs">Add to cart</Button>}
+        </div>
 
     )
 }

@@ -20,3 +20,4 @@ export type CartItemsType = {
     title: string,
     price : number
 }
+

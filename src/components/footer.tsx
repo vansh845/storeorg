@@ -8,6 +8,7 @@ export default function Footer() {
 
             <div className="flex space-x-1 text-sm text-muted-foreground tracking-tight">
                 Built by 
+                <br />
                 <Link className="font-semibold" href={links.github}>Vansh.</Link>
             </div>
             <ModeToggle />

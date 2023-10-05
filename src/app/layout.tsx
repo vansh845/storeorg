@@ -1,11 +1,15 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter as FontSans } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../components/SessionProvider'
 import QCprovider from '../components/queryclientprovider'
 
-const font = Inter({ subsets: ['latin'] })
+const font = FontSans({ 
+  subsets: ['latin'] ,
+  variable: '--font-sans'
+})
+
 
 export const metadata: Metadata = {
   title: 'ShopOrg',
@@ -20,7 +24,7 @@ export default async function RootLayout({
 
   const session = await getServerSession()
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={font.className}>
         
           <SessionProvider session={session}>
