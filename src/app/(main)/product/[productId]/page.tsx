@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { prisma } from "../../../../../prisma"
+import { AlertTriangle } from "lucide-react"
 
 export default async function Product({ params }: { params: { productId: number } }) {
 
@@ -11,7 +12,10 @@ export default async function Product({ params }: { params: { productId: number 
 
     if (!data) {
         return (
-            <p>product not found</p>
+            <div className="flex flex-col text-center min-h-screen justify-center items-center"> 
+                <AlertTriangle />
+                <span className="text-muted-foreground">product not found</span>
+            </div>
         )
     }
 

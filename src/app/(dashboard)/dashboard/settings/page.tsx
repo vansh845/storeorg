@@ -65,7 +65,7 @@ export default function Settings() {
                     </form>
                 </CardContent>
                 <CardFooter className="flex justify-center">
-                    {mutation.isLoading?<Button disabled><Loader2 className="animate-spin"/></Button>:<Button onClick={handleClick}>Create</Button>}
+                    {mutation.isLoading?<Button disabled><Loader2 size={'sm'} className="animate-spin"/></Button>:<Button onClick={handleClick} size={'sm'}>Create</Button>}
                 </CardFooter>
             </Card>
         </div>

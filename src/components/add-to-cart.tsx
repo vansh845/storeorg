@@ -41,7 +41,7 @@ const AddToCart = ({ link, title, price }: { link: string, title: string, price:
 
     return (
         <div className="pb-2">
-            {mutation.isLoading?<Button disabled><Loader2 className="animate-spin"/></Button>:<Button onClick={addtoCart} className="font-medium text-xs">Add to cart</Button>}
+            {mutation.isLoading?<Button disabled><Loader2 className="animate-spin"/></Button>:<Button onClick={addtoCart} size={'sm'} className="font-medium text-xs">Add to cart</Button>}
         </div>
 
     )

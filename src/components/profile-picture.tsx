@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { dashboardConfig } from '@/config/dashboardConfig';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,27 +24,22 @@ export default function ProfilePicture() {
     if (session) {
         return (
             <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger className='focus:outline-none'>
                     <Image src={session.user?.image!} width={32} height={32} alt='pp' className='rounded-full' />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
+                <DropdownMenuContent className="w-56" align='end'>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            Profile
-                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            Dashboard
-                            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                        </DropdownMenuItem>
-                        <Link href='/settings'>
-                            <DropdownMenuItem>
-                                Settings
-                                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                        </Link>
+                        {dashboardConfig.map(
+                            item =>
+                                <Link href={item.href}>
+                                    <DropdownMenuItem>
+                                        {item.title}
+                                        <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                </Link>
+                        )}
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => signOut()}>
@@ -61,3 +57,10 @@ export default function ProfilePicture() {
         </>
     )
 }
+
+{/* <Link href={'/dashboard'}>
+    <DropdownMenuItem>
+        Dashboard
+        <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+    </DropdownMenuItem>
+</Link> */}

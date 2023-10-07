@@ -16,7 +16,7 @@ export default function ModeToggle() {
     }
   }
   return (
-    <Button variant={'ghost'} onClick={handleClick}>{theme==='light'?<SunIcon/>:<MoonIcon/>}</Button>
+    <Button variant={'ghost'} onClick={handleClick}>{theme==='light'?<MoonIcon/>:<SunIcon/>}</Button>
   )
 }
 
