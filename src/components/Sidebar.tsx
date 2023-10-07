@@ -8,7 +8,7 @@ const Sidebar = () => {
         <div className="flex flex-col p-4">
             {dashboardConfig.map(
                 item =>
-                    <Link href={item.href} className={`${cn(buttonVariants({variant:'ghost'}))} px-4 justify-start`}>
+                    <Link key='' href={item.href} className={`${cn(buttonVariants({variant:'ghost'}))} px-4 justify-start`}>
                             {item.title}
                     </Link>
 
