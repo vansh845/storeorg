@@ -15,7 +15,7 @@ export default async function Home() {
   })
 
   return (
-    <main className='md:px-16'>
+    <main className='md:px-8 px-4'>
       <section className="flex flex-col justify-center items-center h-screen">
         <Link className={`${badgeVariants({ variant:"secondary" })} rounded-2xl font-normal p-1.5`} href={links.repo}>{"view on github >"}</Link>
         <h1 className="p-5 text-center scroll-m-20 text-3xl font-normal lg:font-medium leading-tight tracking-tighter md:text-4xl lg:text-6xl">
@@ -25,16 +25,16 @@ export default async function Home() {
           buy products from all over the world
         </h3>
         <div className='flex space-x-2 mt-4'>
-          <Button variant={'default'}>Buy</Button>
+          <Button variant={'default'} size='sm'>Buy</Button>
           {session?.user?'':<Button variant={'outline'}>Sign Up</Button>}
         </div>
 
       </section>
-      <section className='p-4 md:px-8 '>
+      <section className=''>
         <h2 className='font-bold text-2xl tracking-tighter leading-tight'>
           Featured
         </h2>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
           {someProducts.map(product=><ProductCard key={product.id} product={product}/>)}
         </div>
       </section>
