@@ -33,7 +33,7 @@ export default function ProfilePicture() {
                     <DropdownMenuGroup>
                         {dashboardConfig.map(
                             item =>
-                                <Link href={item.href}>
+                                <Link key='' href={item.href}>
                                     <DropdownMenuItem>
                                         {item.title}
                                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
