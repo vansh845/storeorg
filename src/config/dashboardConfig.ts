@@ -1,3 +1,5 @@
+import { UserCircle2 } from "lucide-react"
+
 export const dashboardConfig = [
     {
         title:'Account',
@@ -17,7 +19,7 @@ export const dashboardConfig = [
 export const sidebarConfig = [
     {
         title:'Account',
-        href:'/dashboard/account'
+        href:'/dashboard/account',
     },
     {
         title:'Stores',
