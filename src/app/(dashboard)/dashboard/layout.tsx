@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import Sidebar from "@/components/Sidebar"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -16,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         {children}
                     </div>
                 </div>
+                <Toaster/>
                 <Footer />
             </ThemeProvider>
         </>
