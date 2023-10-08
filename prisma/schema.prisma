@@ -9,20 +9,13 @@ datasource db {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   name      String
-  email     String      @unique
-  cartitems Cartitems[]
+  email     String @unique
+  cartitems Cart[]
 }
 
-model Products {
-  id     Int      @id @default(autoincrement())
-  name   String
-  images String[]
-  price  Int
-}
-
-model Cartitems {
+model Cart {
   cartid    Int    @id @default(autoincrement())
   title     String
   price     Int
@@ -34,6 +27,22 @@ model Category {
   id          Int           @id @default(autoincrement())
   title       String
   subcategory SubCategory[]
+}
+
+model Products {
+  id      Int      @id @default(autoincrement())
+  name    String
+  images  String[]
+  price   Int
+  storeId Int
+  store   Stores   @relation(fields: [storeId], references: [id])
+}
+
+model Stores {
+  id         Int        @id @default(autoincrement())
+  name       String     @unique
+  products   Products[]
+  coverImage String
 }
 
 model SubCategory {

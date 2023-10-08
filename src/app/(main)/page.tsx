@@ -32,7 +32,7 @@ export default async function Home() {
       </section>
       <section className=''>
         <h2 className='font-bold text-2xl tracking-tighter leading-tight'>
-          Featured
+          {someProducts.length != 0?`Featured`:''}
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
           {someProducts.map(product=><ProductCard key={product.id} product={product}/>)}

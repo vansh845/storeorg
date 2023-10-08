@@ -12,7 +12,7 @@ export async function POST(request:Request){
     }
 
     const body = await request.json() as CartItemsType
-    const res = await prisma.cartitems.create({
+    const res = await prisma.cart.create({
         data:{
             title: body.title,
             useremail: session.user?.email!,
