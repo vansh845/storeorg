@@ -5,13 +5,12 @@ import { cn } from "@/lib/utils"
 
 const Sidebar = () => {
     return (
-        <div className="flex flex-col p-4 border-r">
+        <div className="md:flex md:flex-col md:py-4 md:px-2 lg:px-4 md:border-r hidden">
             {dashboardConfig.map(
                 item =>
-                    <Link key='' href={item.href} className={`${cn(buttonVariants({variant:'ghost'}))} text-left pr-24 justify-start`}>
+                    <Link key='' href={item.href} className={`${cn(buttonVariants({variant:'ghost'}))} text-left pr-14 md:pr-24 justify-start`}>
                         {item.title}
                     </Link>
-
             )}
         </div>
     )
