@@ -17,7 +17,7 @@ export default async function Stores() {
             </h1>
             <Link href='/dashboard/stores/new' className={cn(buttonVariants({variant:'default',size:'sm'}))} >Create <PlusIcon /></Link>
         </div>
-            {res.length === 0 ? 'You have no stores currently!' : res.map(x=><p>{x.name}</p>)}
+            {res.length === 0 ? 'You have no stores currently!' : res.map(x=><p key=''>{x.name}</p>)}
         </div>
     )
 }
