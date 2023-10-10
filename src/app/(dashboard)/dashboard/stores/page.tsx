@@ -6,29 +6,26 @@ import { prisma } from "../../../../../prisma";
 import StoreCard from "@/components/storecard";
 import { getServerSession } from "next-auth";
 import { toast } from "@/components/ui/use-toast";
+import { redirect } from "next/navigation";
 
 export default async function Stores() {
 
     const session = await getServerSession()
-
+     
+    if(!session){
+        redirect('/signin')
+    }
 
     const data = await prisma.user.findFirst({
         where:{
-            email : session?.user?.email!
+            email : `${session?.user?.email === undefined ? '':session.user.email}`
         },
         include : {
             stores : true
         }
-    })
+    })!
     // console.log(data)
 
-    if(!data){
-        toast({
-            variant:'destructive',
-            description:'update nickname in settings',
-            action:<Link href={'/dashboard/settings'}>Settings</Link>
-        })
-    }
 
     return (
         <div className="min-h-screen p-4">
