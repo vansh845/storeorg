@@ -5,10 +5,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "../../../../../prisma";
 import StoreCard from "@/components/storecard";
 import { getServerSession } from "next-auth";
+import { toast } from "@/components/ui/use-toast";
 
 export default async function Stores() {
 
     const session = await getServerSession()
+
 
     const data = await prisma.user.findFirst({
         where:{
@@ -19,6 +21,14 @@ export default async function Stores() {
         }
     })
     // console.log(data)
+
+    if(!data){
+        toast({
+            variant:'destructive',
+            description:'update nickname in settings',
+            action:<Link href={'/dashboard/settings'}>Settings</Link>
+        })
+    }
 
     return (
         <div className="min-h-screen p-4">
