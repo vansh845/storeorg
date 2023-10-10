@@ -15,11 +15,18 @@ import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { toast } from "@/components/ui/use-toast"
+import { redirect, useRouter } from "next/navigation"
 
 export default function Settings() {
 
     const [userName, setUsername] = useState("");
     const { data: session } = useSession()
+
+    if(!session){
+        redirect('/signin')
+    }
+
+    const router = useRouter()
 
     const mutation = useMutation({
         mutationFn: async (nm: String) => {
@@ -39,6 +46,8 @@ export default function Settings() {
             toast({
                 description: 'Name saved.'
             })
+            router.back()
+            router.refresh()
         }
     });
 

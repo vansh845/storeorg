@@ -5,27 +5,46 @@ import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "../../../../../prisma";
 import StoreCard from "@/components/storecard";
 import { getServerSession } from "next-auth";
-import { toast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default async function Stores() {
 
     const session = await getServerSession()
-     
-    if(!session){
+
+    if (!session) {
         redirect('/signin')
     }
 
     const data = await prisma.user.findFirst({
-        where:{
-            email : `${session?.user?.email === undefined ? '':session.user.email}`
+        where: {
+            email: session.user?.email!
         },
-        include : {
-            stores : true
+        include: {
+            stores: true
         }
     })!
     // console.log(data)
-
+    if (!data) {
+        return (
+            <div className="min-h-screen">
+                <p className="leading-7 [&:not(:first-child)]:mt-6">
+                    Update username in settings.
+                </p>
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen p-4">
