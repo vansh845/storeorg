@@ -9,10 +9,11 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  name      String
-  email     String @unique
-  cartitems Cart[]
+  id     Int      @id @default(autoincrement())
+  name   String
+  email  String   @unique
+  cart   Cart[]
+  stores Stores[]
 }
 
 model Cart {
@@ -41,8 +42,10 @@ model Products {
 model Stores {
   id         Int        @id @default(autoincrement())
   name       String     @unique
-  products   Products[]
   coverImage String
+  products   Products[]
+  useremail  String
+  user       User       @relation(fields: [useremail], references: [email])
 }
 
 model SubCategory {

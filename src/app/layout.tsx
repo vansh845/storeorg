@@ -4,8 +4,9 @@ import { Inter as FontSans } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../components/SessionProvider'
 import QCprovider from '../components/queryclientprovider'
+import { cn } from '@/lib/utils'
 
-const font = FontSans({ 
+const fontSans = FontSans({ 
   subsets: ['latin'] ,
   variable: '--font-sans'
 })
@@ -25,7 +26,10 @@ export default async function RootLayout({
   const session = await getServerSession()
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+        )}>
         
           <SessionProvider session={session}>
             <QCprovider>
