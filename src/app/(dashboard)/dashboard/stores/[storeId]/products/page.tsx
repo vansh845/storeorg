@@ -4,35 +4,25 @@ import { getServerSession } from "next-auth"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { notFound } from "next/navigation"
 
 export default async function StoreId({ params }: { params: { storeId: number } }) {
 
     const session = await getServerSession()
 
-    // const data = await prisma.user.findFirst({
-    //     where: {
-    //         email: session?.user?.email!
-    //     },
-    //     select: {
-    //         stores: {
-    //             select: {
-    //                 products: true
-    //             }
-    //         }
+    const data = await prisma.stores.findFirst({
+        where:{
+            id : parseInt(`${params.storeId}`),
+            useremail:session?.user?.email!
+        },
+        include:{
+            products:true
+        }
+    })
 
-    //     }
-    // })
-
-    // if (!data) {
-    //     return (
-    //         <div className="min-h-screen">
-    //             page not found
-    //         </div>
-    //     )
-    // }
-
-    // console.log(data)
-
+    if (!data) {
+        notFound()
+    }
 
 
     return (
@@ -43,9 +33,9 @@ export default async function StoreId({ params }: { params: { storeId: number } 
                 </h2>
                 <Link className={cn(buttonVariants({variant:'default',size:'sm'}))} href={`/dashboard/stores/${params.storeId}/products/new`}><PlusIcon className="w-4"/>Add Product</Link>
             </div>
-            {/* <div>
-                {data.stores[0].products.length === 0 ? 'no products found' : data.stores[0].products.map(x => x.name)}
-            </div> */}
+            <div>
+                {data.products.length === 0 ? 'no products found' : data.products.map(x => x.name)}
+            </div>
         </div>
     )
 }
