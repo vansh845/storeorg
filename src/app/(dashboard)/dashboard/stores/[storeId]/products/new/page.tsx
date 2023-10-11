@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export default function NewProduct() {
+export default function NewProduct({params}:{params:{storeId:number}}) {
     return (
         <div className="space-y-4 p-5 h-screen flex flex-col">
             <div>
@@ -28,7 +28,7 @@ export default function NewProduct() {
                             <div className="grid w-full items-center gap-4">
                                 <div className="flex flex-col space-y-1.5">
                                     <Label htmlFor="name">Name</Label>
-                                    <Input id="name" placeholder="Name of your project" />
+                                    <Input id="name" placeholder="Name of your product" />
                                 </div>
                             </div>
                         </form>
