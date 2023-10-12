@@ -56,7 +56,7 @@ export default async function Stores() {
                 <Link href='/dashboard/stores/new' className={cn(buttonVariants({ variant: 'default', size: 'sm' }))} >Create <PlusIcon /></Link>
             </div>
             {data?.stores.length === 0 ? 'You have no stores currently!' :
-                <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {data?.stores.map(x => <StoreCard key={x.id} id={x.id} name={x.name} coverImage={x.coverImage} />)}
                 </div>}
         </div>

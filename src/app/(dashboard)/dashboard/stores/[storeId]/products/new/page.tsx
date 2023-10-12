@@ -1,14 +1,4 @@
-import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import {NewProductFrom} from "@/components/newProductForm"
 
 export default function NewProduct({params}:{params:{storeId:number}}) {
     return (
@@ -19,24 +9,7 @@ export default function NewProduct({params}:{params:{storeId:number}}) {
                 </h1>
             </div>
             <div className="flex justify-center items-center h-full">
-                <Card className="w-[350px]">
-                    <CardHeader>
-                        <CardTitle>Create Product</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <form>
-                            <div className="grid w-full items-center gap-4">
-                                <div className="flex flex-col space-y-1.5">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input id="name" placeholder="Name of your product" />
-                                </div>
-                            </div>
-                        </form>
-                    </CardContent>
-                    <CardFooter className="flex justify-center">
-                        <Button size={'sm'}>Create</Button>
-                    </CardFooter>
-                </Card>
+                <NewProductFrom/>
             </div>
         </div>
     )
