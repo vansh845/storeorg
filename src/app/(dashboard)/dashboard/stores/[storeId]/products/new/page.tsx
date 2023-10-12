@@ -9,7 +9,7 @@ export default function NewProduct({params}:{params:{storeId:number}}) {
                 </h1>
             </div>
             <div className="flex justify-center items-center h-full">
-                <NewProductFrom/>
+                <NewProductFrom storeId={params.storeId}/>
             </div>
         </div>
     )

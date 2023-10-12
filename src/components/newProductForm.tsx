@@ -20,33 +20,46 @@ import {
   SelectValue,
 } from "./ui/select"
 import { Textarea } from "./ui/textarea"
-
+import { toast } from "./ui/use-toast"
 import { useMutation } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
+import {z} from 'zod'
 
-export function NewProductFrom() {
+export function NewProductFrom({storeId}:{storeId:number}) {
 
-  const [formData, setFormdata] = useState({Name:'',Description:'',images:['']})
+  const [formData, setFormdata] = useState({Name:'',Price:'',Images:['']})
+  const router = useRouter()
+  const num = z.number()
 
   const mutation = useMutation({
-    mutationFn: async ({Name,Description,images}:{Name:string,Description:string,images:string[]})=>{
-      fetch('api/products',{
+    mutationFn: async ({Name,Price,Images}:{Name:string,Price:string,Images:string[]})=>{
+      const res = await fetch('/api/products',{
         method:'POST',
         headers:{
           'Content-Type':'application/json'
         },
         body:JSON.stringify({
           name:Name,
-          description:Description
+          price:parseInt(Price),
+          storeid:parseInt(`${storeId}`)
         })
       })
+      const d = await res.json()
+      console.log(d)
+      return res
     },
     onSuccess:()=>{
+      toast({
+        description:'Product created successfully!',
+      })
       
     }
   })
 
   const handleClick = () => {
       mutation.mutate(formData)
+      router.back()
+      router.refresh()
   }
 
   return (
@@ -97,8 +110,8 @@ export function NewProductFrom() {
           <Input id="name" placeholder="Product name" value={formData.Name} onChange={e=>setFormdata({...formData,Name:e.target.value})}/>
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="description">Description</Label>
-          <Textarea id="images" placeholder="Overview of your product..." value={formData.Description} onChange={e=>setFormdata({...formData,Description:e.target.value})}/>
+          <Label htmlFor="price">Price</Label>
+          <Input id="price" placeholder="Price of your product..." value={formData.Price}  onChange={e=>{setFormdata({...formData,Price:e.target.value})}}/>
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
