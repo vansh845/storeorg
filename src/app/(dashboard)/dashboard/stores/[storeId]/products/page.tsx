@@ -33,8 +33,8 @@ export default async function StoreId({ params }: { params: { storeId: number } 
                 </h2>
                 <Link className={cn(buttonVariants({variant:'default',size:'sm'}))} href={`/dashboard/stores/${params.storeId}/products/new`}><PlusIcon className="w-4"/>Add Product</Link>
             </div>
-            <div>
-                {data.products.length === 0 ? 'no products found' : data.products.map(x => x.name)}
+            <div className="flex flex-col">
+                {data.products.length === 0 ? 'no products found' : data.products.map(x => <p key=''>{x.name}</p>)}
             </div>
         </div>
     )
