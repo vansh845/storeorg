@@ -52,14 +52,14 @@ export function NewProductFrom({storeId}:{storeId:number}) {
       toast({
         description:'Product created successfully!',
       })
-      
+      router.back()
+      router.refresh()
     }
   })
 
   const handleClick = () => {
       mutation.mutate(formData)
-      router.back()
-      router.refresh()
+      
   }
 
   return (
