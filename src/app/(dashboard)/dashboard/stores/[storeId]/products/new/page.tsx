@@ -1,6 +1,13 @@
 import {NewProductFrom} from "@/components/newProductForm"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
+export default async function NewProduct({params}:{params:{storeId:number}}) {
 
-export default function NewProduct({params}:{params:{storeId:number}}) {
+    const session = await getServerSession()
+    if(!session){
+        redirect('/signin')
+    }
+
     return (
         <div className="space-y-4 p-5 h-screen flex flex-col">
             <div>
