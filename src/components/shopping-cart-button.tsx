@@ -1,11 +1,24 @@
 import { ShoppingBag } from 'lucide-react'
 import { buttonVariants } from './ui/button'
-import { getCartItems } from '@/actions/getcartitems'
+// import { getCartItems } from '@/actions/getcartitems'
 import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 
 export default async function CartButton() {
-    const res = await getCartItems();
+    const res = [
+        {
+          cartid: 1,
+          title: 'product3',
+          price: 6242,
+          useremail: 'koulvansh845@gmail.com'
+        },
+        {
+          cartid: 2,
+          title: 'p2',
+          price: 3922,
+          useremail: 'koulvansh845@gmail.com'
+        }
+      ]
     const data = await getServerSession()
     const page = data?.user ? '/cart' : '/signin'
     const cartCount = res.length
