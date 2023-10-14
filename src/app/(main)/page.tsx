@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { links, images } from '@/config/site'
 import { badgeVariants } from "@/components/ui/badge"
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import ProductCard from '@/components/product-card'
 import { getServerSession } from 'next-auth'
 import { prisma } from '../../../prisma'
+import { cn } from '@/lib/utils'
 
 export default async function Home() {
 
@@ -15,7 +16,7 @@ export default async function Home() {
   })
 
   return (
-    <main className='md:px-8 px-4'>
+    <main className='md:px-8 px-4 justify-center-center space-y-4'>
       <section className="flex flex-col justify-center items-center h-screen">
         <Link className={`${badgeVariants({ variant:"secondary" })} rounded-2xl font-normal p-1.5`} href={links.repo}>{"view on github >"}</Link>
         <h1 className="p-5 text-center scroll-m-20 text-3xl font-normal lg:font-medium leading-tight tracking-tighter md:text-4xl lg:text-6xl">
@@ -38,6 +39,9 @@ export default async function Home() {
           {someProducts.map(product=><ProductCard key={product.id} product={product}/>)}
         </div>
       </section>
+      <div className='flex justify-center'>
+        <Link href='/products' className={cn(buttonVariants({variant:'default'}))}>View all products</Link>
+      </div>
     </main>
   )
 }
