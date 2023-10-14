@@ -4,7 +4,7 @@ import { prisma } from "../../../../prisma"
 export default async function Products() {
 
     const data = await prisma.products.findMany()
-    const products = data.map(product => <ProductCard product={product} />)
+    const products = data.map(product => <ProductCard key={product.id} product={product} />)
 
     return (
         <div className="min-h-screen p-5 space-y-5">
