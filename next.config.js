@@ -16,7 +16,11 @@ const nextConfig = {
             },
             {
                 protocol:'https',
-                hostname:'imgur.com'
+                hostname:'i.imgur.com'
+            },
+            {
+                protocol:'https',
+                hostname:'avatars.githubusercontent.com'
             }
         ]
     }
