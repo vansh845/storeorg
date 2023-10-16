@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
-        unoptimized:true,
         remotePatterns:[
             {
                 protocol:'https',
@@ -14,6 +13,10 @@ const nextConfig = {
             {
                 protocol:'https',
                 hostname:'images.vegnonveg.com'
+            },
+            {
+                protocol:'https',
+                hostname:'imgur.com'
             }
         ]
     }

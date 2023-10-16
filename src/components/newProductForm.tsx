@@ -116,7 +116,7 @@ export function NewProductFrom({ storeId }: { storeId: number }) {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="images">Images</Label>
-          <Input id="images" placeholder="Upload image url" value={formData.Images} onChange={e => { setFormdata({ ...formData, Images: [e.target.value] }) }} />
+          <Input id="images" placeholder="Upload imgur url" value={formData.Images} onChange={e => { setFormdata({ ...formData, Images: [e.target.value] }) }} />
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
