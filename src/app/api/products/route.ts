@@ -4,13 +4,14 @@ import { prisma } from "../../../../prisma"
 
 export async function POST(req:Request){
     const body = await req.json()
-    console.log(body)
+    // console.log(body)
     try {
         const res = await prisma.products.create({
             data:{
                 name:body.name,
                 storeId:body.storeid,
-                price:body.price
+                price:body.price,
+                images:body.images
             }
         })
         return NextResponse.json({message:'product added successfully',success:true})

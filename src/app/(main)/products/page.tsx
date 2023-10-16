@@ -1,9 +1,15 @@
 import ProductCard from "@/components/product-card"
 import { prisma } from "../../../../prisma"
 
-export default async function Products() {
+export default async function Products({searchParams}:{searchParams:{storeid:string}}) {
 
-    const data = await prisma.products.findMany()
+    let query = {}
+    if(searchParams.storeid){
+        query = {where:{storeId:parseInt(searchParams.storeid)}}
+    }
+
+    const data = await prisma.products.findMany(query)
+
     const products = data.map(product => <ProductCard key={product.id} product={product} />)
 
     return (

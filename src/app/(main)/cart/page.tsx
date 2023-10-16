@@ -1,4 +1,4 @@
-// import { getCartItems } from '../../../actions/getcartitems'
+import { getCartItems } from '../../actions/getcartitems'
 import { ShoppingCart } from 'lucide-react'
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -15,20 +15,7 @@ export default async function Cart() {
         redirect('/signin')
     }
 
-    const cartItems = [
-        {
-          cartid: 1,
-          title: 'product3',
-          price: 6242,
-          useremail: 'koulvansh845@gmail.com'
-        },
-        {
-          cartid: 2,
-          title: 'p2',
-          price: 3922,
-          useremail: 'koulvansh845@gmail.com'
-        }
-      ]
+    const cartItems = await getCartItems()
     let sum = 0;
     for (let i = 0; i < cartItems.length; i++) {
         sum = sum + cartItems[i].price
