@@ -1,4 +1,4 @@
-import CartButton from './shopping-cart-button'
+import CartButton from './cart-button'
 import { RightSheet } from './right-sheet'
 import { prisma } from '../../prisma'
 import { CategoriesType } from '@/types';
