@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server"
 import { prisma } from "../../../../prisma"
-
+import { getServerSession } from "next-auth"
 
 export async function POST(req:Request){
+
+    const session = await getServerSession()
+    if(!session){
+        return NextResponse.json({message:'Unauthorized user',success:false})
+    }
+
     const body = await req.json()
     // console.log(body)
     try {
