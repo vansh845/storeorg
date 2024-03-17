@@ -38,8 +38,11 @@ export default function Product({ params }: { params: { productId: number } }) {
     }
 
     return (
-        <div className="min-h-screen p-8">
-            <Image src={data.images[0]} alt="main" width={300} height={300} ></Image>
+        <div className="min-h-screen p-20">
+            <div className="p-10">
+
+                <Image src={data.images[0]} className="w-full h-56 object-contain" alt="main" width={300} height={300} ></Image>
+            </div>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                 {data.name}
             </h1>
