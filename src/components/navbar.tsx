@@ -1,3 +1,4 @@
+
 import CartButton from './cart-button'
 import { RightSheet } from './right-sheet'
 import { prisma } from '../../prisma'
@@ -6,7 +7,7 @@ import ProfilePicture from '@/components/profile-picture';
 import Link from 'next/link';
 
 
-export default async function Navbar() {
+export default function Navbar() {
 
     // async function getCategories(): Promise<CategoriesType[]> {
     //     const res = await prisma.category.findMany()
@@ -22,7 +23,7 @@ export default async function Navbar() {
                 </div>
                 <Link href={'/'}>
                     <h4 className="scroll-m-20 text-xl font-bold tracking-tight">
-                        StoreOrg
+                        Store
                     </h4>
                 </Link>
 

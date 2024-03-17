@@ -1,36 +1,56 @@
-import { NextResponse } from "next/server"
-import { prisma } from "../../../../prisma"
-import { getServerSession } from "next-auth"
+import { NextResponse } from "next/server";
+import { prisma } from "../../../../prisma";
+import { getServerSession } from "next-auth";
 
 type reqType = {
-    Name: string,
-    Description: string
+  Name: string;
+  Description: string;
+};
+
+export async function GET(request: Request) {
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json({
+      message: "Unauthorized access",
+      success: false,
+    });
+  }
+
+  const data = await prisma.stores.findMany({
+    where: {
+      useremail: session?.user?.email!,
+    },
+  });
+
+  return NextResponse.json(data);
 }
 
-export async function POST(request:Request){
+export async function POST(request: Request) {
+  const session = await getServerSession();
 
-    const session = await getServerSession()
+  if (!session) {
+    return NextResponse.json({
+      message: "Unauthorized access",
+      success: false,
+    });
+  }
 
-    if(!session){
-        return NextResponse.json({message: 'Unauthorized access' , success: false})
-    }
+  const body = (await request.json()) as reqType;
 
-    const body = await request.json() as reqType
-
-    try {
-        const res = await prisma.stores.create({
-            data:{
-                name:body.Name,
-                coverImage:body.Description,
-                useremail : session?.user?.email!
-                
-            }
-        })
-        return NextResponse.json({message:'store created successfully', success:true})
-        
-    } catch (error) {
-        return NextResponse.json({message:'error creating store', error: error})
-    }
-
-
+  try {
+    const res = await prisma.stores.create({
+      data: {
+        name: body.Name,
+        coverImage: body.Description,
+        useremail: session?.user?.email!,
+      },
+    });
+    return NextResponse.json({
+      message: "store created successfully",
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json({ message: "error creating store", error: error });
+  }
 }

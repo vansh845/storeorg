@@ -14,8 +14,8 @@ export default function StoreCard({ storeid, title }: { storeid: number, title: 
             <CardHeader className="overflow-hidden">
                 <Link className="overflow-hidden" href={{ pathname: '/products', query: { storeid: storeid } }}>
                     <AspectRatio ratio={4 / 3}>
-                        <Suspense fallback={<ImageOff/>}>
-                            <Image src={`/images/storebackground/back${Math.floor(Math.random() * 3) + 1}.jpg`} fill className="object-cover w-fit" alt="store-background" />
+                        <Suspense fallback={<ImageOff />}>
+                            <Image src={`/images/storebackground/back2.jpg`} fill className="object-cover w-fit" alt="store-background" />
                         </Suspense>
                     </AspectRatio>
                 </Link>

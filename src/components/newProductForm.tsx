@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEventHandler, useState } from "react"
+import { ChangeEvent, ChangeEventHandler, useState } from "react"
 import { Button } from "./ui/button"
 import {
   Card,
@@ -23,10 +23,14 @@ import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { z } from 'zod'
+import { set, z } from 'zod'
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { app } from '../firebase'
+
 
 export function NewProductFrom({ storeId }: { storeId: number }) {
-
+  const storage = getStorage(app);
+  const [loading, setLoading] = useState(false)
   const [formData, setFormdata] = useState({ Name: '', Price: '', Images: [''] })
   const router = useRouter()
   const num = z.number()
@@ -62,6 +66,22 @@ export function NewProductFrom({ storeId }: { storeId: number }) {
     mutation.mutate(formData)
 
   }
+  const [selectedFile, setSelectedFile] = useState<File | null | undefined>(null);
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    if (event.target.files && event.target.files.length > 0) {
+
+      setSelectedFile(event?.target?.files?.[0]);
+      const imageRef = ref(storage, `images/${event?.target?.files?.[0]?.name}`);
+
+      // Upload file to Firestore
+      const snapshot = await uploadBytes(imageRef, event?.target?.files?.[0])
+      const downloadURL = await getDownloadURL(snapshot.ref)
+      setFormdata({ ...formData, Images: [downloadURL] })
+    }
+    setLoading(false);
+  };
 
   return (
     <Card>
@@ -73,38 +93,8 @@ export function NewProductFrom({ storeId }: { storeId: number }) {
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="area">Area</Label>
-            <Select defaultValue="billing">
-              <SelectTrigger id="area">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="team">Team</SelectItem>
-                <SelectItem value="billing">Billing</SelectItem>
-                <SelectItem value="account">Account</SelectItem>
-                <SelectItem value="deployments">Deployments</SelectItem>
-                <SelectItem value="support">Support</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="security-level">Security Level</Label>
-            <Select defaultValue="2">
-              <SelectTrigger
-                id="security-level"
-                className="line-clamp-1 w-[160px] truncate"
-              >
-                <SelectValue placeholder="Select level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">Severity 1 (Highest)</SelectItem>
-                <SelectItem value="2">Severity 2</SelectItem>
-                <SelectItem value="3">Severity 3</SelectItem>
-                <SelectItem value="4">Severity 4 (Lowest)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+
+
         </div>
         <div className="grid gap-2">
           <Label htmlFor="name">Name</Label>
@@ -116,12 +106,12 @@ export function NewProductFrom({ storeId }: { storeId: number }) {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="images">Images</Label>
-          <Input id="images" placeholder="Upload imgur url" value={formData.Images} onChange={e => { setFormdata({ ...formData, Images: [e.target.value] }) }} />
+          <Input id="images" type="file" placeholder="Upload file" onChange={handleFileChange} />
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
         <Button variant="ghost">Cancel</Button>
-        <Button onClick={handleClick}>Submit</Button>
+        <Button onClick={handleClick} disabled={loading}>Submit</Button>
       </CardFooter>
     </Card>
   )

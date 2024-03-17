@@ -1,22 +1,40 @@
+'use client'
 import Image from "next/image"
 import { prisma } from "../../../../../prisma"
 import { AlertTriangle } from "lucide-react"
+import { useEffect, useState } from "react"
+import { ProductType } from "@/types"
+// import { notFound } from "next/navigation"
 
-export default async function Product({ params }: { params: { productId: number } }) {
+export default function Product({ params }: { params: { productId: number } }) {
+    const [data, setData] = useState<ProductType>()
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`/api/product?productId=${params.productId}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const json = await response.json();
+                setData(json);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                // setIsLoading(false);
+            }
+        };
 
-    const data = await prisma.products.findFirst({
-        where: {
-            id: Number(params.productId)
-        }
-    })
+        fetchData();
+    }, [params.productId]);
 
     if (!data) {
         return (
-            <div className="flex flex-col text-center min-h-screen justify-center items-center"> 
+            <div className="flex flex-col text-center min-h-screen justify-center items-center">
                 <AlertTriangle />
                 <span className="text-muted-foreground">product not found</span>
             </div>
         )
+        // notFound()
     }
 
     return (

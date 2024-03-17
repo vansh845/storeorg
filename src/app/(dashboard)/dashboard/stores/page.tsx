@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
@@ -5,7 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "../../../../../prisma";
 import StoreCard from "@/components/storecard";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import {
     AlertDialog,
@@ -18,25 +19,26 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { StoreType } from "@/types";
 
-export default async function Stores() {
+export default function Stores() {
 
-    const session = await getServerSession()
+    const session = useSession()
+    const router = useRouter()
 
-    if (!session) {
-        redirect('/signin')
-    }
-
-    const data = await prisma.user.findFirst({
-        where: {
-            email: session.user?.email!
-        },
-        include: {
-            stores: true
+    const [stores, setStores] = useState<StoreType[]>()
+    useEffect(() => {
+        if (!session) {
+            router.push('/signin')
         }
-    })!
+        const res = fetch('/api/stores').then(x => x.json()).then(x => setStores(x))
+    }, [])
+
+
     // console.log(data)
-    if (!data) {
+    if (!stores) {
         return (
             <div className="min-h-screen">
                 <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -55,9 +57,9 @@ export default async function Stores() {
                 </h1>
                 <Link href='/dashboard/stores/new' className={cn(buttonVariants({ variant: 'default', size: 'sm' }))} >Create <PlusIcon /></Link>
             </div>
-            {data?.stores.length === 0 ? 'You have no stores currently!' :
+            {stores?.length === 0 ? 'You have no stores currently!' :
                 <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {data?.stores.map(x => <StoreCard key={x.id} id={x.id} name={x.name} coverImage={x.coverImage} />)}
+                    {stores?.map(x => <StoreCard key={x.id} id={x.id} name={x.name} coverImage={x.coverImage} />)}
                 </div>}
         </div>
     )

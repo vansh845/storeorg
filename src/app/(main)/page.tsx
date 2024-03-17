@@ -25,7 +25,7 @@ export default async function Home() {
       <section className="flex flex-col justify-center items-center h-screen">
         <Link className={`${badgeVariants({ variant: "secondary" })} rounded-2xl font-normal p-1.5`} href={links.repo}>{"view on github >"}</Link>
         <h1 className="p-5 text-center scroll-m-20 text-3xl font-normal lg:font-medium leading-tight tracking-tighter md:text-4xl lg:text-6xl">
-          E-commerce store made using nextjs 13
+          Ecommerce store made using Nextjs 13
         </h1>
         <h3 className='font-extralight mt-4'>
           buy products from all over the world
@@ -53,7 +53,7 @@ export default async function Home() {
           {someProducts.length != 0 ? `Stores` : ''}
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-          {someStores.map(store=><StoreCard key={store.id} storeid={store.id} title={store.name}/>)}
+          {someStores.map(store => <StoreCard key={store.id} storeid={store.id} title={store.name} />)}
         </div>
       </section>
     </main>

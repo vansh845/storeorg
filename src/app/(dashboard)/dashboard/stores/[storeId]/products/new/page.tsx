@@ -1,11 +1,13 @@
-import {NewProductFrom} from "@/components/newProductForm"
+'use client'
+import { NewProductFrom } from "@/components/newProductForm"
 import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
-export default async function NewProduct({params}:{params:{storeId:number}}) {
-
-    const session = await getServerSession()
-    if(!session){
-        redirect('/signin')
+import { useSession } from "next-auth/react"
+import { redirect, useRouter } from "next/navigation"
+export default function NewProduct({ params }: { params: { storeId: number } }) {
+    const router = useRouter()
+    const session = useSession()
+    if (!session) {
+        router.push('/signin')
     }
 
     return (
@@ -16,7 +18,7 @@ export default async function NewProduct({params}:{params:{storeId:number}}) {
                 </h1>
             </div>
             <div className="flex justify-center items-center h-full">
-                <NewProductFrom storeId={params.storeId}/>
+                <NewProductFrom storeId={params.storeId} />
             </div>
         </div>
     )

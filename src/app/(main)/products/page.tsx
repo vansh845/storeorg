@@ -1,14 +1,26 @@
+'use client'
 import ProductCard from "@/components/product-card"
 import { prisma } from "../../../../prisma"
+import { useEffect, useState } from "react"
+import { ProductType } from "@/types"
 
-export default async function Products({searchParams}:{searchParams:{storeid:string}}) {
+export default function Products({ searchParams }: { searchParams: { storeid: string } }) {
 
     let query = {}
-    if(searchParams.storeid){
-        query = {where:{storeId:parseInt(searchParams.storeid)}}
+    if (searchParams.storeid) {
+        query = { where: { storeId: parseInt(searchParams.storeid) } }
     }
 
-    const data = await prisma.products.findMany(query)
+    const [data, setData] = useState<ProductType[]>([])
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await fetch(`/api/products?storeId=${searchParams.storeid || '0'}`)
+            const json = await res.json()
+            setData(json)
+        }
+        fetchData()
+    }, [searchParams.storeid])
 
     const products = data.map(product => <ProductCard key={product.id} product={product} />)
 
