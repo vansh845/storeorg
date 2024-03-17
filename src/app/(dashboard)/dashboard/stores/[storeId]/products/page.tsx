@@ -23,6 +23,7 @@ export default function StoreId({ params }: { params: { storeId: number } }) {
     // }
 
     useEffect(() => {
+        console.log(process.env.FIREBASE_API_KEY!)
         const fetchData = async () => {
             try {
                 const response = await fetch(`/api/products?storeId=${params.storeId}`);
