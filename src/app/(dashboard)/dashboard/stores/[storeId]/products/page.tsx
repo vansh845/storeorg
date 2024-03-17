@@ -38,7 +38,7 @@ export default function StoreId({ params }: { params: { storeId: number } }) {
         };
 
         fetchData();
-    }, []);
+    }, [params.storeId]);
 
 
     return (
