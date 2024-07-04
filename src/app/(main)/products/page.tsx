@@ -3,6 +3,7 @@ import ProductCard from "@/components/product-card"
 import { prisma } from "../../../../prisma"
 import { useEffect, useState } from "react"
 import { ProductType } from "@/types"
+import LoadingDots from "@/components/loadingdots"
 
 export default function Products({ searchParams }: { searchParams: { storeid: string } }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,16 +17,16 @@ export default function Products({ searchParams }: { searchParams: { storeid: st
         const res = await fetch(`/api/products?storeId=${searchParams.storeid || '0'}`)
         const json = await res.json()
         setData(json)
+        setIsLoading(false)
     }
 
     useEffect(() => {
         fetchData()
-        setIsLoading(false)
     }, [])
 
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return <LoadingDots />
     }
 
     if (data?.length === 0) {
