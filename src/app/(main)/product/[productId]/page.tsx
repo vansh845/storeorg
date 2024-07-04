@@ -26,7 +26,7 @@ export default function Product({ params }: { params: { productId: number } }) {
 
         fetchData();
         console.log(data)
-    }, []);
+    });
 
     if (isLoading) {
         return (
@@ -130,8 +130,8 @@ export default function Product({ params }: { params: { productId: number } }) {
                                 <span className="text-lg font-medium">4.3</span>
                             </div>
                             <p>
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed\n euismod, nisl nec ultricies ultricies,
-                                nunc nisl ultricies nunc,\n nec ultricies nunc nisl nec nunc."
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed\n euismod, nisl nec ultricies ultricies,
+                                nunc nisl ultricies nunc,\n nec ultricies nunc nisl nec nunc.
                             </p>
                             <div className="flex items-center gap-2 mt-2">
                                 <img src="/placeholder.svg" alt="Reviewer Avatar" width={40} height={40} className="rounded-full" />
@@ -150,9 +150,9 @@ export default function Product({ params }: { params: { productId: number } }) {
                                 <span className="text-lg font-medium">5.0</span>
                             </div>
                             <p>
-                                "Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies\n nunc, nec ultricies nunc nisl nec
+                                Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies\n nunc, nec ultricies nunc nisl nec
                                 nunc. Nullam auctor, nisl nec\n ultricies ultricies, nunc nisl ultricies nunc, nec ultricies\n nunc nisl
-                                nec nunc."
+                                nec nunc.
                             </p>
                             <div className="flex items-center gap-2 mt-2">
                                 <img src="/placeholder.svg" alt="Reviewer Avatar" width={40} height={40} className="rounded-full" />
