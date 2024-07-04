@@ -4,10 +4,10 @@ import { prisma } from "../../../../prisma";
 
 export async function GET(req: NextRequest) {
   const productId = req.nextUrl.searchParams.get("productId");
-  const session = await getServerSession();
-  if (!session) {
-    return NextResponse.json({ message: "Unauthorized user", success: false });
-  }
+  // const session = await getServerSession();
+  // if (!session) {
+  //   return NextResponse.json({ message: "Unauthorized user", success: false });
+  // }
 
   // const data = await prisma.stores.findFirst({
   //     where: {

@@ -5,24 +5,32 @@ import { useEffect, useState } from "react"
 import { ProductType } from "@/types"
 
 export default function Products({ searchParams }: { searchParams: { storeid: string } }) {
-
+    const [isLoading, setIsLoading] = useState(true);
     let query = {}
     if (searchParams.storeid) {
         query = { where: { storeId: parseInt(searchParams.storeid) } }
     }
 
     const [data, setData] = useState<ProductType[] | null>([])
+    async function fetchData() {
+        const res = await fetch(`/api/products?storeId=${searchParams.storeid || '0'}`)
+        const json = await res.json()
+        setData(json)
+    }
 
     useEffect(() => {
-        async function fetchData() {
-            const res = await fetch(`/api/products?storeId=${searchParams.storeid || '0'}`)
-            const json = await res.json()
-            setData(json)
-        }
         fetchData()
-    }, [searchParams.storeid])
+        setIsLoading(false)
+    }, [])
 
-    const products = data?.map(product => <ProductCard key={product.id} product={product} />)
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+
+    if (data?.length === 0) {
+        return <div>No products found</div>
+    }
 
     return (
         <div className="min-h-screen p-5 space-y-5">
@@ -30,7 +38,7 @@ export default function Products({ searchParams }: { searchParams: { storeid: st
                 Products
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {products?.length === 0 ? 'No products found' : products}
+                {data?.map(product => <ProductCard key={product.id} product={product} />)}
             </div>
         </div>
     )

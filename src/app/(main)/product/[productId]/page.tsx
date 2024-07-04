@@ -7,6 +7,7 @@ import { ProductType } from "@/types"
 
 export default function Product({ params }: { params: { productId: number } }) {
     const [data, setData] = useState<ProductType>()
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -25,6 +26,10 @@ export default function Product({ params }: { params: { productId: number } }) {
 
         fetchData();
     }, [params.productId]);
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
 
     if (!data) {
         return (
