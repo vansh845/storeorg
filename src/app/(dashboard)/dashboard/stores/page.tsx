@@ -29,10 +29,10 @@ export default function Stores() {
     const router = useRouter()
 
     const [stores, setStores] = useState<StoreType[]>()
+    if (!session.data) {
+        router.push('/signin')
+    }
     useEffect(() => {
-        if (!session) {
-            router.push('/signin')
-        }
         const res = fetch('/api/stores').then(x => x.json()).then(x => setStores(x))
     }, [])
 
