@@ -35,3 +35,9 @@ export type ProductType = {
   images: string[];
   storeId: number;
 };
+
+export type CartItem = {
+  title: string;
+  price: number;
+  images: string[];
+};

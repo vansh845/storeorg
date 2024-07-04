@@ -1,48 +1,58 @@
-import { getCartItems } from '../../actions/getcartitems'
-import { ShoppingCart } from 'lucide-react'
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+'use client'
 import CartCard from '@/components/cartitemscard';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { CartItem } from '@/types';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default async function Cart() {
-
-    const session = await getServerSession()
-
-
-    if (!session?.user) {
-        redirect('/signin')
-    }
-
-    const cartItems = await getCartItems()
-    let sum = 0;
-    for (let i = 0; i < cartItems.length; i++) {
-        sum = sum + cartItems[i].price
-    }
-    if (cartItems.length === 0) {
-        return (
-            <div className='flex flex-col items-center justify-center h-screen text-muted-foreground'>  
-                <ShoppingCart className='w-20 h-20' />
-                <br />
-                <h3>Your cart is empty</h3>
-            </div>
-        )
-    }
-
-
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [total, setTotal] = useState<number>(0);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/api/cart');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const json = await response.json();
+                setCartItems(json);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, [])
+    useEffect(() => {
+        let total = 0;
+        cartItems.forEach(item => {
+            total += item.price;
+        });
+        setTotal(total);
+    }, [cartItems])
     return (
-        <div className='min-h-screen flex flex-col justify-between'>
-            <div>
-                {cartItems.map(x => <CartCard key='' title={x.title} price={x.price} />)}
-            </div>
-            <div className='p-16 right-0 flex flex-col space-y-3'>
-                <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-                    Summary
-                </h2>
-                {`₹${sum}`}
-                <Link href={'https://buy.stripe.com/test_8wM2at72y82m688144'} className={`w-min ${buttonVariants({variant:'default'})}`}>Checkout</Link>
-            </div>
+        <div className="flex flex-col">
+            <section className="bg-muted py-12 md:py-20">
+                <div className="container">
+                    <h2 className="text-2xl font-bold mb-8">Your Cart</h2>
+                    <div className="grid gap-8">
+                        {cartItems.map((item, i) => (
+                            <div key={i} className="flex items-center gap-4">
+                                <Image src={item.images[0]} alt={item.title} width={80} height={80} className="rounded-lg" />
+                                <div className="flex-1">
+                                    <h3 className="font-semibold">{item.title}</h3>
+                                    <p className="text-muted-foreground">${item.price.toFixed(2)}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-8 flex justify-between items-center">
+                        <p className="text-2xl font-bold">Total: ${total}</p>
+                        <Button size="lg">Checkout</Button>
+                    </div>
+                </div>
+            </section>
         </div>
     )
 }

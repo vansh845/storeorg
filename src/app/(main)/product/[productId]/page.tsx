@@ -26,7 +26,7 @@ export default function Product({ params }: { params: { productId: number } }) {
 
         fetchData();
         console.log(data)
-    });
+    }, []);
 
     if (isLoading) {
         return (
