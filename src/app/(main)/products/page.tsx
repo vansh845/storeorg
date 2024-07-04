@@ -11,7 +11,7 @@ export default function Products({ searchParams }: { searchParams: { storeid: st
         query = { where: { storeId: parseInt(searchParams.storeid) } }
     }
 
-    const [data, setData] = useState<ProductType[]>([])
+    const [data, setData] = useState<ProductType[] | null>([])
 
     useEffect(() => {
         async function fetchData() {
@@ -22,7 +22,7 @@ export default function Products({ searchParams }: { searchParams: { storeid: st
         fetchData()
     }, [searchParams.storeid])
 
-    const products = data.map(product => <ProductCard key={product.id} product={product} />)
+    const products = data?.map(product => <ProductCard key={product.id} product={product} />)
 
     return (
         <div className="min-h-screen p-5 space-y-5">
@@ -30,7 +30,7 @@ export default function Products({ searchParams }: { searchParams: { storeid: st
                 Products
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {products}
+                {products?.length === 0 ? 'No products found' : products}
             </div>
         </div>
     )

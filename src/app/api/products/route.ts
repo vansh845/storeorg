@@ -4,10 +4,6 @@ import { getServerSession } from "next-auth";
 
 export async function GET(req: NextRequest) {
   const storeId = req.nextUrl.searchParams.get("storeId");
-  const session = await getServerSession();
-  if (!session) {
-    return NextResponse.json({ message: "Unauthorized user", success: false });
-  }
 
   let data;
   if (storeId != "0") {
