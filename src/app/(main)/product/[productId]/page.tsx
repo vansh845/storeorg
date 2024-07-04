@@ -1,6 +1,5 @@
 'use client'
 import Image from "next/image"
-import { prisma } from "../../../../../prisma"
 import { AlertTriangle } from "lucide-react"
 import { useEffect, useState } from "react"
 import { ProductType } from "@/types"
