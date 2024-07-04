@@ -25,6 +25,7 @@ export default function Product({ params }: { params: { productId: number } }) {
         };
 
         fetchData();
+        setIsLoading(false);
     }, [params.productId]);
 
     if (isLoading) {
